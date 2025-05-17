@@ -1,0 +1,24 @@
+{
+  "name": "Rust",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/home/user/.cargo/bin"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-from-docker:latest": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bungcip.better-toml",
+        "rust-lang.rust-analyzer"
+      ]
+    },
+    "settings": {
+      "remote.autoForwardPorts": true,
+      "remote.autoForwardPortsSource": "process"
+    }
+  }
+}

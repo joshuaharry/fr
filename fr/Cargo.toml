@@ -1,0 +1,10 @@
+[package]
+name = "fr"
+version = "1.0.0"
+edition = "2024"
+
+[dependencies]
+ignore = "0.4"
+
+[dev-dependencies]
+tempfile = "3.8"

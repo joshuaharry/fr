@@ -1,0 +1,36 @@
+name: Test Before Merging to Main
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run Tests
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest]
+        target: [x86_64-unknown-linux-gnu, aarch64-unknown-linux-gnu]
+        include:
+          - platform: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+          - platform: ubuntu-latest
+            target: aarch64-unknown-linux-gnu
+          - platform: macos-latest
+            target: x86_64-apple-darwin
+          - platform: macos-latest
+            target: aarch64-apple-darwin
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@1.87.0
+        with:
+          components: rustfmt, clippy
+          targets: ${{ matrix.target }}
+      
+      - name: Run Tests
+        run: cd fr && cargo test --verbose
