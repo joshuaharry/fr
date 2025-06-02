@@ -164,8 +164,8 @@ fn parse_arguments<'a>(args: &'a [String]) -> Result<CommandArgs<'a>, String> {
             args.len().saturating_sub(1)));
     }
 
-    if args[1].is_empty() || args[2].is_empty() {
-        return Err("Find and replace text cannot be empty".to_string());
+    if args[1].is_empty() {
+        return Err("Find text cannot be empty".to_string());
     }
 
     Ok(CommandArgs::FindReplace {
@@ -255,13 +255,17 @@ mod tests {
         let test_cases = vec![
             vec!["fr".to_string()],
             vec!["fr".to_string(), "find".to_string()],
-            vec!["fr".to_string(), "".to_string(), "replace".to_string()],
-            vec!["fr".to_string(), "find".to_string(), "".to_string()],
         ];
 
         for args in test_cases {
             assert!(parse_arguments(&args).is_err(), "Should fail for args: {:?}", args);
         }
+    }
+
+    #[test]
+    fn test_parse_arguments_replace_text_empty() {
+        let args = vec!["fr".to_string(), "find".to_string(), "".to_string()];
+        assert!(parse_arguments(&args).is_ok(), "Should not fail for empty replace text");
     }
 
     #[test]
