@@ -90,8 +90,8 @@ fn is_binary(file_path: &Path) -> bool {
 /// * `find_text` - Text to find in the file
 /// * `replace_text` - Text to replace the found text with
 fn find_replace_file(file_path: &Path, find_text: &str, replace_text: &str) -> io::Result<()> {
-    // Skip if not a file or if find_text is empty
-    if !file_path.is_file() || find_text.is_empty() {
+    // Skip if not a file
+    if !file_path.is_file() {
         return Ok(());
     }
 
